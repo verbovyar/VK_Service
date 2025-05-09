@@ -23,8 +23,10 @@ type SubPub interface {
 }
 
 func NewSubPub() SubPub {
-	//TODO
-	return nil
+	return &broker{
+		topics: make(map[string]map[*subscriber]struct{}),
+		closed: make(chan struct{}),
+	}
 }
 
 type subscriber struct {
@@ -134,4 +136,3 @@ func (b *broker) Close(ctx context.Context) error {
 		return nil
 	}
 }
-

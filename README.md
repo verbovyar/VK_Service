@@ -25,6 +25,9 @@ VK_Service — это лёгкий Go-сервис с gRPC API, реализую
   ```bash
   go install google.golang.org/protobuf/cmd/protoc-gen-go@latest  
   go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+- Установите goose:
+  ```bash
+  go install github.com/pressly/goose/v3/cmd/goose@latest
 
 ## Структура проекта
 
@@ -50,7 +53,12 @@ PORT=:8080
 3. Установить зависимости и сгенерировать protobuf
 ```bash
 go mod tidy
+cd proto
 protoc --go_out=. --go-grpc_out=. proto/pubsub.proto
+```
+Из корня репозитория
+```bash
+goose -dir migrations postgres "postgres://user:password@localhost:8080/dbname?sslmode=disable" up
 ```
 4. Собрать сервер
 ```bash
